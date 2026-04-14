@@ -5,7 +5,19 @@ st.set_page_config(page_title = "Loom Local Bot", page_icon = '🤖')
 st.title("Loom AI Assistant")
 st.caption("Powered by Llama 3.2, GPU: 3060")
 
-model = ChatOllama(model="huihui_ai/llama3.2-abliterate", temperature=1)
+# Create a sidebar for settings
+with st.sidebar:
+    st.header("Settings")
+    # Add a dropdown with the models you have downloaded
+    selected_model = st.selectbox(
+        "Choose a Model",
+        ["llama3.2", "dolphin-llama3", "llama3.1"],
+        index=0
+    )
+    st.info(f"Currently using: {selected_model}")
+
+# Update your model initialization to use the variable
+model = ChatOllama(model=selected_model, temperature=0.7)
 
 if "messages" not in st.session_state:
     st.session_state.messages=[
